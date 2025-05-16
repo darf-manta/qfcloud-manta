@@ -1,0 +1,3 @@
+[submodule "QFieldCloud"]
+	path = QFieldCloud
+	url = https://github.com/opengisch/QFieldCloud
