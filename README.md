@@ -15,13 +15,19 @@ cp my-docker-compose.override.standalone.yml QFieldCloud/
 cp my.env QFieldCloud/.env
 ```
 
-3. Editar las variables con `change_me` en `QFieldCloud/.env`
+3. Añadir `server blocks` extra a la configuración de `nginx`
+
+```
+cat extra.conf.template >> QFieldCloud/docker-nginx/templates/default.conf.template
+```
+
+4. Editar las variables con `change_me` en `QFieldCloud/.env`
 
 ```
 nano QFieldCloud/.env
 ```
 
-4. Construir las imágenes y ejecutar los contenedores
+5. Construir las imágenes y ejecutar los contenedores
 
 ```
 cd QFieldCloud

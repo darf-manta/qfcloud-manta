@@ -1,0 +1,20 @@
+
+server {
+  listen 8007;
+
+  ssl_certificate     ${QFIELDCLOUD_TLS_CERT};
+  ssl_certificate_key ${QFIELDCLOUD_TLS_KEY};
+  ssl_dhparam ${QFIELDCLOUD_TLS_DHPARAMS};
+
+  server_name ${QFIELDCLOUD_HOST};
+  location / {
+    # Required when keepalive is used
+    proxy_http_version 1.1;
+
+    proxy_read_timeout 300;
+    proxy_send_timeout 300;
+
+    proxy_redirect off;
+    proxy_pass http://172.17.0.1:3838;
+  }
+}
