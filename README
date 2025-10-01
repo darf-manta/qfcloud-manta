@@ -4,12 +4,13 @@ Una instancia de QFieldCloud
 1. Clonar el repositorio incluyendo el submódulo
 
 ```
-git clone --recurse-submodules https://github.com/darf-manta/qfc-manta
+git clone --recurse-submodules https://github.com/darf-manta/qfcloud-manta
 ```
 
 2. Copiar los archivos compose y environment a `QFieldcloud/`
 
 ```
+cd qfcloud-manta
 cp my-docker-compose.yml QFieldCloud/
 cp my-docker-compose.override.standalone.yml QFieldCloud/
 cp my.env QFieldCloud/.env
@@ -21,16 +22,16 @@ cp my.env QFieldCloud/.env
 cat extra.conf.template >> QFieldCloud/docker-nginx/templates/default.conf.template
 ```
 
-4. Editar las variables con `change_me` en `QFieldCloud/.env`
+4. Editar las variables con `change_me` en el environment
 
 ```
-nano QFieldCloud/.env
+cd QFieldCloud
+nano .env
 ```
 
 5. Construir las imágenes y ejecutar los contenedores
 
 ```
-cd QFieldCloud
 docker compose build
 docker compose up -d
 ```
