@@ -1,4 +1,5 @@
 # qfc-manta
+
 Una instancia de QFieldCloud
 
 1. Clonar el repositorio incluyendo el submódulo
@@ -29,9 +30,12 @@ cd QFieldCloud
 nano .env
 ```
 
-5. Construir las imágenes y ejecutar los contenedores
+5. Construir las imágenes e inicializar los contenedores
 
 ```
 docker compose build
 docker compose up -d
 ```
+
+6. Ejecutar los comandos post-inicialización descritos en
+https://github.com/opengisch/QFieldCloud#deployment
