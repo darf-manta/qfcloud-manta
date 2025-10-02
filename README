@@ -8,13 +8,13 @@ Una instancia de QFieldCloud
 git clone --recurse-submodules https://github.com/darf-manta/qfcloud-manta
 ```
 
-2. Copiar los archivos compose y environment a `QFieldcloud/`
+2. Copiar los archivos environment y compose a `QFieldcloud/`
 
 ```
 cd qfcloud-manta
+cp my.env QFieldCloud/.env
 cp my-docker-compose.yml QFieldCloud/
 cp my-docker-compose.override.standalone.yml QFieldCloud/
-cp my.env QFieldCloud/.env
 ```
 
 3. Añadir `server blocks` extra a la configuración de `nginx`
@@ -23,19 +23,26 @@ cp my.env QFieldCloud/.env
 cat extra.conf.template >> QFieldCloud/docker-nginx/templates/default.conf.template
 ```
 
-4. Editar las variables con `change_me` en el environment
+4. Colocar certificados TLS válidos en `QFieldcloud/conf/nginx/certs/`
+
+5. Editar las variables con `change_me` en el environment
 
 ```
 cd QFieldCloud
 nano .env
 ```
 
-5. Construir las imágenes e inicializar los contenedores
+6. Construir las imágenes e inicializar los contenedores
 
 ```
 docker compose build
 docker compose up -d
 ```
 
-6. Ejecutar los comandos post-inicialización descritos en
+7. Ejecutar los comandos post-inicialización descritos en
 https://github.com/opengisch/QFieldCloud#deployment
+
+```
+docker compose exec app python manage.py migrate
+docker compose exec app python manage.py collectstatic
+```
