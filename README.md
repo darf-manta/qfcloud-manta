@@ -1,6 +1,4 @@
-# qfc-manta
-
-Una instancia de QFieldCloud
+# Instrucciones
 
 1. Tener lista una base de datos Postgres, denominada `qfcloudb`, propiedad de `qfcloudb_owner`
 
