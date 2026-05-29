@@ -27,6 +27,7 @@ services:
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
       DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
       SECRET_KEY: ${SECRET_KEY}
+      SALT_KEY: ${SALT_KEY}
       DEBUG: ${DEBUG}
       ENVIRONMENT: ${ENVIRONMENT}
       SENTRY_DSN: ${SENTRY_DSN}
@@ -71,6 +72,7 @@ services:
       QFIELDCLOUD_ADMIN_URI: ${QFIELDCLOUD_ADMIN_URI}
       QFIELDCLOUD_WORKER_QFIELDCLOUD_URL: ${QFIELDCLOUD_WORKER_QFIELDCLOUD_URL}
       QFIELDCLOUD_SUBSCRIPTION_MODEL: ${QFIELDCLOUD_SUBSCRIPTION_MODEL}
+      QFIELDCLOUD_ACCOUNT_ADAPTER: ${QFIELDCLOUD_ACCOUNT_ADAPTER}
       QFIELDCLOUD_AUTH_TOKEN_EXPIRATION_HOURS: ${QFIELDCLOUD_AUTH_TOKEN_EXPIRATION_HOURS}
       QFIELDCLOUD_USE_I18N: ${QFIELDCLOUD_USE_I18N}
       QFIELDCLOUD_DEFAULT_LANGUAGE: ${QFIELDCLOUD_DEFAULT_LANGUAGE}
@@ -106,6 +108,7 @@ services:
       - ${WEB_HTTPS_PORT}:443
       - ${EXTRA_HTTPS_PORT}:3838
     environment:
+      DEBUG: ${DEBUG}
       QFIELDCLOUD_HOST: ${QFIELDCLOUD_HOST}
       QFIELDCLOUD_TLS_CERT: ${QFIELDCLOUD_TLS_CERT}
       QFIELDCLOUD_TLS_KEY: ${QFIELDCLOUD_TLS_KEY}
@@ -170,9 +173,11 @@ services:
     logging: *default-logging
     scale: ${QFIELDCLOUD_WORKER_REPLICAS}
     stop_grace_period: 15m
+    labels:
+      ofelia.enabled: "false"
 
   ofelia:
-    image: mcuadros/ofelia:v0.3.4
+    image: mcuadros/ofelia:v0.3.18
     restart: unless-stopped
     depends_on:
       - app
@@ -184,7 +189,7 @@ services:
     image: k3rnelpan1c/alpine-wget:latest
     command: |
       wget --mirror https://cdn.proj.org/ -P /transformation_grids --no-host-directories
-      chmod a+r /transformation_grids/*
+      && chmod a+r /transformation_grids/*
     volumes:
       - transformation_grids:/transformation_grids
 
